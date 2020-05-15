@@ -17,6 +17,7 @@ Angular module to format Hanzi and Pinyin as coherent blocks.
   - [Pinyin with numbers](#Pinyin-with-numbers)
   - [Skip pinyin for some characters](#Skip-pinyin-for-some-characters)
   - [Enable alphabet for pinyin](#Enable-alphabet-for-pinyin)
+  - [Display pinyin below characters](#Set-pinyin-below-characters)
   - [CSS styling](#CSS-styling)
 
 ## Quickstart
@@ -134,6 +135,30 @@ export class AppModule { }
 
 `[includeAlphabet]="true"` is then no longer needed. It is also possible to disable the alphabet in specific
 cases by setting `[includeAlphabet]="false"`.
+
+### Set pinyin below characters
+
+Pinyin are displayed on top of the hanzi characters by default. To display them on the bottom,
+set `[bottomPinyin]="true"`:
+
+```html
+<ng-piao-liang-hanzi [chineseCharacters]="'你好。'" [pinyin]="'nĭ hăo'" [bottomPinyin]="true"></ng-piao-liang-hanzi>
+```
+
+  ![image](https://raw.githubusercontent.com/AlexanderTang/PiaoLiangHanzi/master/assets/images/eng_pinyin.png)
+
+This feature can be enabled globally with the `ENABLE_BOTTOM_PINYIN` flag:
+
+```javascript
+import { NgPiaoLiangHanziModule } from 'ng-piao-liang-hanzi';
+@NgModule({
+  imports: [NgPiaoLiangHanziModule],
+  providers: [{provide: 'ENABLE_BOTTOM_PINYIN', useValue: true}]
+})
+export class AppModule { }
+```
+
+It is still possible to override the global flag locally with `[bottomPinyin]="false"`.
 
 ### CSS styling
 

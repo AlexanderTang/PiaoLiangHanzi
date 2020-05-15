@@ -5,3 +5,8 @@
 .ng-piao-liang-hanzi-pinyin {
 
 }
+
+ruby.show-pinyin-below {
+  display: inline-flex;
+  flex-direction: column;
+}

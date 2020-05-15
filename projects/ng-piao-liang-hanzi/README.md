@@ -121,6 +121,30 @@ export class AppModule { }
 `[includeAlphabet]="true"` is then no longer needed. It is also possible to disable the alphabet in specific
 cases by setting `[includeAlphabet]="false"`.
 
+### Set pinyin below characters
+
+Pinyin are displayed on top of the hanzi characters by default. To display them on the bottom,
+set `[bottomPinyin]="true"`:
+
+```html
+<ng-piao-liang-hanzi [chineseCharacters]="'你好。'" [pinyin]="'nĭ hăo'" [bottomPinyin]="true"></ng-piao-liang-hanzi>
+```
+
+  ![image](https://raw.githubusercontent.com/AlexanderTang/PiaoLiangHanzi/master/assets/images/eng_pinyin.png)
+
+This feature can be enabled globally with the `ENABLE_BOTTOM_PINYIN` flag:
+
+```javascript
+import { NgPiaoLiangHanziModule } from 'ng-piao-liang-hanzi';
+@NgModule({
+  imports: [NgPiaoLiangHanziModule],
+  providers: [{provide: 'ENABLE_BOTTOM_PINYIN', useValue: true}]
+})
+export class AppModule { }
+```
+
+It is still possible to override the global flag locally with `[bottomPinyin]="false"`.
+
 ### CSS styling
 
 The Chinese characters and pinyin can have custom css styling with classes 

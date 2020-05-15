@@ -16,15 +16,21 @@ export class NgPiaoLiangHanziComponent implements OnInit {
   @Input() pinyin: string;
   @Input() pinyinWithNumber: boolean;
   @Input() includeAlphabet: boolean;
+  @Input() bottomPinyin: boolean;
 
   charPinyinArray: CharPinyin[] = [];
 
   constructor(@Inject('ENABLE_PINYIN_NUMBER_FORMAT') private pinyinWithNumberGlobal: boolean,
-              @Inject('ENABLE_ALPHABET') private includeAlphabetGlobal: boolean) {
+              @Inject('ENABLE_ALPHABET') private includeAlphabetGlobal: boolean,
+              @Inject('ENABLE_BOTTOM_PINYIN') private bottomPinyinGlobal: boolean) {
   }
 
   ngOnInit() {
     this.mapPinyin();
+  }
+
+  isPinyinOnBottom(): boolean {
+    return this.enableFlag(this.bottomPinyin, this.bottomPinyinGlobal);
   }
 
   private mapPinyin(): void {

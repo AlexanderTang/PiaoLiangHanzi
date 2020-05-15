@@ -5,8 +5,11 @@ describe('NgPiaoLiangHanziComponent', () => {
   let spectator: SpectatorHost<NgPiaoLiangHanziComponent>;
   const createComponent = createHostFactory({
     component: NgPiaoLiangHanziComponent,
-    providers: [{provide: 'ENABLE_PINYIN_NUMBER_FORMAT', useValue: false},
-      {provide: 'ENABLE_ALPHABET', useValue: false}]
+    providers: [
+      {provide: 'ENABLE_PINYIN_NUMBER_FORMAT', useValue: false},
+      {provide: 'ENABLE_ALPHABET', useValue: false},
+      {provide: 'ENABLE_BOTTOM_PINYIN', useValue: false}
+    ]
   });
 
   describe('Basic pinyin functionality', () => {
@@ -186,6 +189,38 @@ describe('NgPiaoLiangHanziComponent', () => {
       expect(spectator.component.charPinyinArray).toContainEqual({'char': 'b', 'pinyin': ''});
       expect(spectator.component.charPinyinArray).toContainEqual({'char': '使', 'pinyin': 'a'});
       expect(spectator.component.charPinyinArray).toContainEqual({'char': '用', 'pinyin': 'b'});
+    });
+
+    it('Display pinyin below characters - input variable (and overrides module parameter)', () => {
+      spectator = createComponent(`<ng-piao-liang-hanzi [chineseCharacters]="'使用'" [bottomPinyin]="true" [pinyin]="'shǐ yòng'"></ng-piao-liang-hanzi>`);
+
+      expect(spectator.component.chineseCharacters).toEqual('使用');
+      expect(spectator.component.pinyin).toEqual('shǐ yòng');
+      expect(spectator.component.charPinyinArray).toContainEqual({'char': '使', 'pinyin': 'shǐ'});
+      expect(spectator.component.charPinyinArray).toContainEqual({'char': '用', 'pinyin': 'yòng'});
+      expect(spectator.component.isPinyinOnBottom()).toBeTruthy();
+    });
+
+    it('Display pinyin below characters - module parameter', () => {
+      spectator = createComponent(`<ng-piao-liang-hanzi [chineseCharacters]="'使用'" [pinyin]="'shǐ yòng'"></ng-piao-liang-hanzi>`,
+        {providers: [{provide: 'ENABLE_BOTTOM_PINYIN', useValue: true}]});
+
+      expect(spectator.component.chineseCharacters).toEqual('使用');
+      expect(spectator.component.pinyin).toEqual('shǐ yòng');
+      expect(spectator.component.charPinyinArray).toContainEqual({'char': '使', 'pinyin': 'shǐ'});
+      expect(spectator.component.charPinyinArray).toContainEqual({'char': '用', 'pinyin': 'yòng'});
+      expect(spectator.component.isPinyinOnBottom()).toBeTruthy();
+    });
+
+    it('Display pinyin below characters - module parameter true - input variable overrides to false', () => {
+      spectator = createComponent(`<ng-piao-liang-hanzi [chineseCharacters]="'使用'" [bottomPinyin]="false" [pinyin]="'shǐ yòng'"></ng-piao-liang-hanzi>`,
+        {providers: [{provide: 'ENABLE_BOTTOM_PINYIN', useValue: true}]});
+
+      expect(spectator.component.chineseCharacters).toEqual('使用');
+      expect(spectator.component.pinyin).toEqual('shǐ yòng');
+      expect(spectator.component.charPinyinArray).toContainEqual({'char': '使', 'pinyin': 'shǐ'});
+      expect(spectator.component.charPinyinArray).toContainEqual({'char': '用', 'pinyin': 'yòng'});
+      expect(spectator.component.isPinyinOnBottom()).toBeFalsy();
     });
 
     it('Skip placeholder _ for pinyin', () => {

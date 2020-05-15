@@ -9,8 +9,11 @@ import {CommonModule} from '@angular/common';
     CommonModule
   ],
   exports: [NgPiaoLiangHanziComponent],
-  providers: [{provide: 'ENABLE_PINYIN_NUMBER_FORMAT', useValue: false},
-    {provide: 'ENABLE_ALPHABET', useValue: false}]
+  providers: [
+    {provide: 'ENABLE_PINYIN_NUMBER_FORMAT', useValue: false},
+    {provide: 'ENABLE_ALPHABET', useValue: false},
+    {provide: 'ENABLE_BOTTOM_PINYIN', useValue: false}
+  ]
 })
 export class NgPiaoLiangHanziModule {
 }
