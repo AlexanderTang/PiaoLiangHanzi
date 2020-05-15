@@ -145,7 +145,7 @@ set `[bottomPinyin]="true"`:
 <ng-piao-liang-hanzi [chineseCharacters]="'你好。'" [pinyin]="'nĭ hăo'" [bottomPinyin]="true"></ng-piao-liang-hanzi>
 ```
 
-  ![image](https://raw.githubusercontent.com/AlexanderTang/PiaoLiangHanzi/master/assets/images/eng_pinyin.png)
+  ![image](https://raw.githubusercontent.com/AlexanderTang/PiaoLiangHanzi/master/assets/images/pinyin_below.png)
 
 This feature can be enabled globally with the `ENABLE_BOTTOM_PINYIN` flag:
 
